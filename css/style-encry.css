@@ -1,0 +1,125 @@
+body {
+    background: url('https://wallpapers.com/images/high/cyber-security-background-h7q4dz7nn9u9cvmt.web') no-repeat center center fixed;
+    background-size: cover;
+    backdrop-filter: brightness(0.3) blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    margin: 0;
+    padding: 0;
+    font-family: 'Orbitron', sans-serif;
+    color: #d4f7d4;
+}
+
+.container {
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 40px; /* Espacement interne du conteneur */
+    background: rgba(145, 141, 141, 0.2); /* Fond transparent */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    max-width: 450px;
+    width: 100%;
+    margin: 100px auto;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #4ba54b;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group {
+    margin-bottom: 15px; /* Espacement entre chaque champ */
+    width: 100%;
+}
+
+label {
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #b3e3b3;
+    display: block;
+}
+
+input[type="text"], input[type="email"], input[type="password"], input[type="file"] {
+    width: 100%; /* Utiliser toute la largeur disponible */
+    padding: 12px; /* Espacement interne dans chaque champ */
+    font-size: 14px;
+    border: 1px solid #228105;
+    border-radius: 5px;
+    background-color: #4f4f4f;
+    font-family: 'Orbitron', sans-serif; /* Change la police du corps */
+    background: rgba(101, 101, 101, 0.4); /* Fond transparent */
+    color: #7a7a7a;
+    transition: border-color 0.3s ease-in-out;
+    margin-bottom: 17px; /* Espacement entre les champs */
+}
+
+input:focus {
+    border-color: #096809;
+    outline: none;
+}
+
+button {
+    background-color: #4c9f4c;
+    color: #fff;
+    border: none;
+    font-size: 14px; 
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-top: 17px; /* Espacement entre le bouton et les champs */
+}
+
+button:hover {
+    background-color: #9cd69c;
+}
+
+#result {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: rgba(0, 50, 0, 0.8);
+    border-radius: 5px;
+    text-align: center;
+    color: #d4f7d4;
+}
+ #content {
+    flex: 1; /* Prendre tout l'espace restant pour le contenu */
+    position: relative;
+    z-index: 1; /* Contenu au-dessus del'image de fond */
+}
+
+
+a {
+    color: #33ff33;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #00cc00;
+}
+
+.footer_section {
+    text-align: center;  /* Centre le texte */
+    padding: 20px 0;  /* Espacement autour du contenu */
+    position: relative; 
+    z-index: 1;  /* Assure que le footer soit au-dessus de l'image de fond */
+    margin-top: auto;
+}
+
+.footer_section p {
+    margin: 0;  /* Enlève les marges par défaut du paragraphe */
+}
+
+.footer_section a {
+    color: #fff;  /* Liens en blanc */
+    text-decoration: none;  /* Supprime le soulignement des liens */
+}

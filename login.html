@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CypherTrust Technologies - Secure Your Future">
+  <title>QuadraSec</title>
+  
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style-login.css">
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #121212;
+      color: #fff;
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .wrapper header {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: #4caf50;
+    }
+
+    .wrapper form {
+      margin-top: 20px;
+    }
+
+    .wrapper form input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #4caf50;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    .wrapper form input:focus {
+      outline: none;
+      box-shadow: 0 0 5px #81c784;
+      border-color: #81c784;
+    }
+
+    .wrapper form a {
+      color: #4caf50;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .wrapper form a:hover {
+      text-decoration: underline;
+    }
+
+    .wrapper form input[type="submit"] {
+      background: #4caf50;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .wrapper form input[type="submit"]:hover {
+      background: #81c784;
+    }
+
+    .wrapper p {
+      margin-top: 15px;
+    }
+
+    .wrapper .signup-link {
+      color: #4caf50;
+    }
+
+    .wrapper .signup-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="wrapper">
+    <header>Connectez/Inscrivez-vous pour profiter de nos services</header>
+    <form action="login.php" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="login" value="1">
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Mot de passe" required>
+      <a href="#">Mot de passe oublié?</a>
+      <input type="submit" value="Se connecter" name="Se connecter">
+    </form>
+    <p>Pas de compte? <a href="#" class="signup-link">S'inscrire.</a></p>
+  </section>
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>QuadraSec</title>
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <!-- font awesome style -->
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style-email.css">
+</head>
+
+<body>
+  <div class="hero_area">
+    <header class="header_section">
+      <div class="header_bottom">
+        <div class="container-fluid">
+          <nav class="navbar navbar-expand-lg custom_nav-container">
+            <a class="navbar-brand" href="index.html">
+              <span>
+                QuadraSec
+              </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class=""> </span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="index.html">acceuil <span class="sr-only">(current)</span></a>
+                </li>
+                <!-- other navigation items -->
+              </ul>
+              <div class="user_option-box">
+                <a href="logout.php">
+                  <i class="fa fa-sign-out" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <h2>Générer et envoyer l'email chiffré</h2>
+      <form id="emailForm">
+        <div class="form-group">
+          <label for="userName">Nom:</label>
+          <input type="text" class="form-control" id="userName" name="userName" required>
+        </div>
+        <div class="form-group">
+          <label for="userEmail">Email:</label>
+          <input type="email" class="form-control" id="userEmail" name="userEmail" required>
+        </div>
+        <div class="form-group">
+          <label for="receiverEmail">Recepteur de l'email:</label>
+          <input type="email" class="form-control" id="receiverEmail" name="receiverEmail" required>
+        </div>
+        <div class="form-group">
+          <label for="emailSubject">Objet:</label>
+          <input type="text" class="form-control" id="emailSubject" name="emailSubject" required>
+        </div>
+        <div class="form-group">
+          <label for="emailContent">Contenu:</label>
+          <textarea class="form-control" id="emailContent" name="emailContent" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Envoyer l'email chiffré</button>
+      </form>
+      <div id="responseMessage" ></div>
+    </div>
+  </div>
+    <!-- footer section -->
+    <footer class="footer_section">
+      <div class="container">
+      <p>
+          &copy; <span id="displayDateYear"></span> 2024 Tous les droits sont réservés par
+          <a href="https://html.design/">QuadraSec</a>
+      </p>
+      </div>
+  </footer>
+  <!-- footer section -->
+
+
+  <!-- Include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+  <!-- Include zaba.js -->
+  <script src="zaba.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#emailForm').on('submit', function (e) {
+        e.preventDefault();
+        var formData = {
+          userName: $('#userName').val(),
+          userEmail: $('#userEmail').val(),
+          receiverEmail: $('#receiverEmail').val(),
+          emailSubject: $('#emailSubject').val(),
+          emailContent: $('#emailContent').val()
+        };
+        $.ajax({
+          type: 'POST',
+          url: 'server-email1.js',
+          data: formData,
+          success: function (response) {
+            $('#responseMessage').text(response.message);
+          },
+          error: function (error) {
+            $('#responseMessage').text('Error sending email: ' + error.responseJSON.message);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

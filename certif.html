@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>QuadraSec</title>
+
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <!-- font awesome style -->
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style-pki.css">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/forge/0.10.0/forge.min.js"></script>
+  <link rel="stylesheet" href="certificateDisplay.css">
+  
+</head>
+
+<body>
+    <div class="hero_area">
+        <!-- header section strats -->
+        <header class="header_section">
+          <div class="header_bottom">
+            <div class="container-fluid">
+              <nav class="navbar navbar-expand-lg custom_nav-container ">
+                <a class="navbar-brand" href="index.html">
+                  <span>
+                    QuadraSec
+                  </span>
+                </a>
+    
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class=""> </span>
+                </button>
+    
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav ">
+                    <li class="nav-item ">
+                      <a class="nav-link" href="index.html">Accueil </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="about.html">À propos </a>
+                    </li>
+                    <li class="nav-item active">
+                      <a class="nav-link" href="service.html">Services <span class="sr-only">(current)</a>
+                    </li>
+                    <li class="nav-item">
+                     <a class="nav-link" href="login.html">Se connecter</a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </header>
+        <!-- end header section -->
+    </div>
+
+    <section id="pki-hero">
+        <h1>Public Key Infrastructure (PKI) Services</h1>
+        <p>Construire les bases de votre sécurité numérique avec des certifications et signatures de confiance.</p>
+    </section>
+    <section id="pki-details">
+        <h2>Solutions PKI complètes</h2>
+        <p>Nos services PKI garantissent des transactions et des communications électroniques sécurisées sur vos plateformes numériques. En gérant les clés et les certificats, nous fournissons un cadre de sécurité robuste qui soutient les signatures numériques et le chiffrement, essentiels pour protéger les informations sensibles.</p>
+        <ul>
+            <div class="service">
+                <h3>Émission et gestion de certificats numériques</h3>
+                <form id="certificateForm" action="/generate" method="post">
+                    <label for="countryName">Nom du pays (code à 2 lettres) :</label>
+                    <input type="text" id="countryName" name="country" required>
+
+                    <label for="stateOrProvinceName">Nom de l'État ou de la province (nom complet):</label>
+                    <input type="text" id="stateOrProvinceName" name="state" required>
+
+                    <label for="localityName">Nom de la localité (par exemple, ville):</label>
+                    <input type="text" id="localityName" name="city" required>
+
+                    <label for="organizationName">Nom de l'organisation (par exemple, entreprise):</label>
+                    <input type="text" id="organizationName" name="organization" required>
+
+                    <label for="organizationalUnitName">Nom de l'unité organisationnelle (par exemple, section):</label>
+                    <input type="text" id="organizationalUnitName" name="unit" required>
+
+                    <label for="commonName">Nom commun (par exemple, votre nom):</label>
+                    <input type="text" id="commonName" name="commonName" required>
+
+                    <label for="emailAddress">Adresse e-mail:</label>
+                    <input type="email" id="emailAddress" name="email" required>
+                    
+                    <input type="submit" value="Générer le  Certificat">
+                </form>
+                <div id="certificateDisplay"></div>
+              </div>
+    </ul>
+</section>
+
+<script>
+    function generateCertificate(event) {
+        event.preventDefault(); // Empêche la soumission classique du formulaire
+
+        const formData = new FormData(event.target);
+
+        fetch('/generate', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('certificateDisplay').innerHTML = `
+                <h2>Certificat généré avec succès :</h2>
+                <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px;">
+                    <pre>${data}</pre>
+                </div>
+                <br>
+                <a href="/">Retour à la page d'accueil</a>
+            `;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+</script>
+            </div>
+            <div class="service">
+                <h3>Signatures numériques sécurisées</h3>
+                <p>Assurez l'intégrité et l'authenticité de vos documents numériques avec notre service de signatures numériques sécurisées. Idéal pour les documents légaux, contrats et autres informations sensibles nécessitant des signatures vérifiées.</p>
+                <form id="uploadForm" action="/sign-document" method="post" enctype="multipart/form-data">
+                  <label for="document">Télécharger le document :</label>
+                  <input type="file" id="document" name="document"  accept=".pdf,.doc,.docx,.txt" required>
+      
+                  <label for="documentType">Sélectionner le type de document :</label>
+                  <select id="documentType" name="documentType" required>
+                      <option value="contract">Contrat</option>
+                      <option value="legal">Document légal</option>
+                      <option value="financial">Document financier </option>
+                  </select>
+      
+                  <button type="submit">Générer la signature.</button>
+              </form>
+              <div id="result"></div>
+            </div>
+            <script src="signature.js"></script>
+        </ul>
+    </section>
+
+        <!-- footer section -->
+    <footer class="footer_section">
+        <div class="container">
+        <p>
+            &copy; <span id="displayDateYear"></span> Tous les droits sont réservés par
+            <a href="https://html.design/">QuadraSec</a>
+        </p>
+        </div>
+    </footer>
+    <!-- footer section -->
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+    </script>
+    <script src="js/custom.js"></script>
+    <!-- Google Map -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
+    <!-- End Google Map -->
+
+</body>
+
+</html>

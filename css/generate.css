@@ -1,0 +1,45 @@
+body {
+    height: 100%; /* Assure que le body prend toute la hauteur */
+    margin: 0;    /* Retire les marges par défaut */
+    background-color: #222;
+}
+
+#certificateDisplay {
+    color: white; /* Texte en blanc */
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    word-wrap: break-word; /* Permet de gérer les longs mots dans le certificat */
+}
+
+#certificateDisplay h2 {
+    text-align: center;
+    color: #4CAF50; /* Vert pour le titre */
+}
+
+#certificateDisplay pre {
+    background-color: #111; /* Fond plus sombre pour le texte du certificat */
+    padding: 20px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: white; /* Texte en blanc */
+    white-space: pre-wrap; /* Préserve la mise en forme */
+    word-wrap: break-word; /* Gère les retours à la ligne */
+}
+
+#certificateDisplay a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #4CAF50; /* Couleur du lien en vert */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#certificateDisplay a:hover {
+    text-decoration: underline;
+}

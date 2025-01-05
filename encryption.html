@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>QuadraSec</title>
+
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <!-- font awesome style -->
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style-encry.css">
+
+</head>
+
+<body>
+    <div class="hero_area">
+        <!-- header section strats -->
+        <header class="header_section">
+          <div class="header_bottom">
+            <div class="container-fluid">
+              <nav class="navbar navbar-expand-lg custom_nav-container ">
+                <a class="navbar-brand" href="index.html">
+                  <span>
+                    QuadraSec
+                  </span>
+                </a>
+    
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class=""> </span>
+                </button>
+    
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav ">
+                    <li class="nav-item ">
+                      <a class="nav-link" href="index.html">Accueil </span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="about.html">À propos</a>
+                    </li>
+                    <li class="nav-item active">
+                      <a class="nav-link" href="service.html">Services <span class="sr-only">(current)</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="login.html">Se connecter</a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </header>
+        <!-- end header section -->
+    </div>
+
+  
+
+    <div class="container">
+      <h1>Service de cryptage de fichiers</h1>
+      <div class="form-group">
+          <label for="algorithm">Choisissez l’algorithme:</label>
+          <select id="algorithm">
+              <option value="AES-GCM">AES-GCM</option>
+              <option value="AES-CBC">AES-CBC</option>
+          </select>
+      </div>
+      <div class="form-group">
+          <label for="fileInput">Sélectionnez Fichier:</label>
+          <input type="file" id="fileInput">
+      </div>
+      <button onclick="encryptFile()">Crypter le fichier</button>
+      <a id="downloadLink" style="display: none;">Télécharger le fichier crypté</a>
+  </div>
+
+  <script>
+      async function encryptFile() {
+  const algorithmSelect = document.getElementById('algorithm');
+  const fileInput = document.getElementById('fileInput');
+  const downloadLink = document.getElementById('downloadLink');
+
+  if (!fileInput.files.length) {
+      alert('Please select a file.');
+      return;
+  }
+
+  const file = fileInput.files[0];
+  const arrayBuffer = await file.arrayBuffer();
+  const algorithm = algorithmSelect.value;
+
+  let key, iv, encryptedContent;
+
+  // Set the key length to 256 bits (32 bytes)
+  const keyLength = 256;
+
+  if (algorithm === 'AES-GCM') {
+      iv = crypto.getRandomValues(new Uint8Array(12)); // AES-GCM standard IV size
+      key = await crypto.subtle.generateKey(
+          { name: 'AES-GCM', length: keyLength },
+          true,
+          ['encrypt', 'decrypt']
+      );
+      encryptedContent = await crypto.subtle.encrypt(
+          { name: 'AES-GCM', iv: iv },
+          key,
+          arrayBuffer
+      );
+  } else if (algorithm === 'AES-CBC') {
+      iv = crypto.getRandomValues(new Uint8Array(16)); // AES-CBC standard IV size
+      key = await crypto.subtle.generateKey(
+          { name: 'AES-CBC', length: keyLength },
+          true,
+          ['encrypt', 'decrypt']
+      );
+      encryptedContent = await crypto.subtle.encrypt(
+          { name: 'AES-CBC', iv: iv },
+          key,
+          arrayBuffer
+      );
+  } else {
+      alert('Unsupported algorithm selected.');
+      return;
+  }
+
+  const encryptedBlob = new Blob([iv, new Uint8Array(encryptedContent)], { type: 'application/octet-stream' });
+  const url = URL.createObjectURL(encryptedBlob);
+
+  downloadLink.href = url;
+  downloadLink.download = `${file.name}.encrypted`;
+  downloadLink.style.display = 'block';
+  downloadLink.textContent = 'Download Encrypted File';
+}
+
+  </script>
+
+<div class="container">
+  <h1>Service de cryptage de texte</h1>
+  
+  <div class="form-group">
+      <label for="plainText">Texte à chiffrer :</label>
+      <textarea id="plainText" rows="4"></textarea>
+  </div>
+
+  <div class="form-group">
+      <button onclick="generateKey()">Générer une clé</button>
+      <input type="text" id="encryptionKey" >
+  </div>
+
+  <div class="form-group">
+      <button onclick="encryptText()">Chiffrer</button>
+      <textarea id="encryptedText" rows="4" readonly></textarea>
+  </div>
+
+  <div class="form-group">
+      <button onclick="decryptText()">Décrypter</button>
+      <textarea id="decryptedText" rows="4" readonly></textarea>
+  </div>
+</div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script>
+        function generateKey() {
+      const key = CryptoJS.lib.WordArray.random(16).toString();
+      document.getElementById('encryptionKey').value = key;
+      }
+
+      function encryptText() {
+      const key = document.getElementById('encryptionKey').value;
+      if (!key) {
+        alert('Please generate a key first.');
+        return;
+      }
+
+      const plainText = document.getElementById('plainText').value;
+      if (!plainText) {
+        alert('Please enter text to encrypt.');
+        return;
+      }
+
+      // Encrypt the plaintext using the key
+      const encrypted = CryptoJS.AES.encrypt(plainText, key).toString();
+
+      document.getElementById('encryptedText').value = encrypted;
+      }
+
+      function decryptText() {
+      const key = document.getElementById('encryptionKey').value;
+      if (!key) {
+        alert('Please generate a key first.');
+        return;
+      }
+
+      const encryptedText = document.getElementById('encryptedText').value;
+      if (!encryptedText) {
+        alert('Please encrypt some text first.');
+        return;
+      }
+
+      // Decrypt the ciphertext using the key
+      const decrypted = CryptoJS.AES.decrypt(encryptedText, key).toString(CryptoJS.enc.Utf8);
+
+      document.getElementById('decryptedText').value = decrypted;
+      }
+
+
+    </script>
+  
+
+  
+      <!-- footer section -->
+      <footer class="footer_section">
+        <div class="container">
+        <p>
+            &copy; <span id="displayDateYear"></span> Tous les droits sont réservés par
+            <a href="https://html.design/">QuadraSec</a>
+        </p>
+        </div>
+    </footer>
+    <!-- footer section -->
+     
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+  </script>
+  <script src="js/custom.js"></script>
+  <!-- Google Map -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
+  <!-- End Google Map -->
+
+
+</body>
+
+</html>
+    
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">

@@ -1,0 +1,117 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap"); /* Police cybersécurité */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Orbitron", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #121212; /* Mode sombre */
+    overflow: hidden;
+    position: relative;
+}
+
+/* Image de fond */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(https://wallpapers.com/images/high/cyber-security-background-h7q4dz7nn9u9cvmt.webp) center/cover no-repeat; /* Remplacez par une vraie image */
+    opacity: 0.2; /* Transparence pour laisser le focus sur le formulaire */
+    z-index: -1;
+    filter: blur(5px);
+}
+
+/* Conteneur principal */
+.wrapper {
+    width: 100%;
+    max-width: 400px;
+    padding: 40px 20px;
+    background: rgba(0, 0, 0, 0.85); /* Fond semi-transparent */
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    animation: slideIn 1s ease-in-out;
+}
+
+/* Animation d'apparition */
+@keyframes slideIn {
+    from {
+        transform: translateY(-50%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+h1 {
+    font-size: 24px;
+    color: #4caf50; /* Vert foncé */
+    margin-bottom: 20px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+form input {
+    height: 50px;
+    outline: none;
+    border: 1px solid #4caf50;
+    padding: 0 15px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #ffffff;
+    border-radius: 8px;
+    background: #333;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+form input:focus {
+    border-color: #81c784; /* Vert clair */
+    box-shadow: 0 0 8px #81c784;
+}
+
+form input[type="submit"] {
+    cursor: pointer;
+    background: #4caf50;
+    color: #ffffff;
+    font-weight: 500;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+form input[type="submit"]:hover {
+    background: #81c784;
+    transform: scale(1.05);
+}
+
+/* Texte pour inscription */
+p {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #b3b3b3;
+}
+
+p a {
+    color: #4caf50;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+p a:hover {
+    color: #81c784;
+}
