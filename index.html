@@ -63,13 +63,16 @@ session_start();
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ">
                   <li class="nav-item ">
-                    <a class="nav-link" href="index.html">Accueil </span></a>
+                    <a class="nav-link" href="index.html">Acceuil</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="about.html">À propos</a>
                   </li>
                   <li class="nav-item active">
                     <a class="nav-link" href="service.html">Services <span class="sr-only">(current)</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="actu.html">Actu</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="login.html">Se connecter</a>
@@ -136,6 +139,93 @@ session_start();
   </section>
 
   <!-- end about section -->
+
+
+  <!-- Blog section : NewsApi -->
+
+  <section class="about_section layout_padding-bottom">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-12 col-md-12">
+                <div class="detail-box position-relative">
+                    <div class="gif-background">
+                        <h2>
+                            Actualités Cybersécurité
+                        </h2>
+                        <p>
+                            Restez à jour avec les dernières nouvelles en matière de cybersécurité. Découvrez les derniers articles et avancées dans le domaine de la protection des systèmes numériques.
+                        </p>
+                        <div id="news-container">
+                            <!-- Les articles seront insérés ici -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const newsContainer = document.getElementById("news-container");
+
+        const apiKey = 'b5fa3f94f1e547039b9a6bc1c0eb0be4';
+        const url = `https://newsapi.org/v2/everything?q=cybersecurity&apiKey=${apiKey}`;
+
+        // Fonction pour récupérer les actualités
+        function fetchNews() {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const articles = data.articles;
+                    newsContainer.innerHTML = ''; // Réinitialiser le contenu précédent
+
+                    // Limiter le nombre d'articles affichés (par exemple, 5 articles)
+                    const maxArticles = 7;
+                    const limitedArticles = articles.slice(0, maxArticles);
+
+                    limitedArticles.forEach(article => {
+
+                        if (article.title && article.description && article.urlToImage) {
+
+                            const articleElement = document.createElement('div');
+                            articleElement.innerHTML = `
+                                <div class="article-box" style="display: flex; align-items: center; margin-bottom: 20px;">
+                                    <!-- Ajouter l'image avec une taille ajustée -->
+                                    <img src="${article.urlToImage}" alt="Image de l'actualité" style="max-width: 180px; max-height: 150px; object-fit: cover; margin-right: 15px;" />
+                                    
+                                    <div style="flex: 1;">
+                                        <h3><a href="${article.url}" target="_blank">${article.title}</a></h3>
+                                        <p>${article.description || 'Pas de description disponible.'}</p>
+                                        <!-- Placer le lien Lire plus à côté du titre et de la description -->
+                                        <p><a href="${article.url}" target="_blank" style="color: #007bff; text-decoration: none;">Lire plus</a></p>
+                                    </div>
+                                </div>
+                                <hr>
+                            `;
+                            newsContainer.appendChild(articleElement);
+
+                        }
+
+                    });
+                })
+                .catch(error => console.error('Erreur lors de la récupération des actualités :', error));
+        }
+
+        // Appel initial pour charger les actualités
+        fetchNews();
+
+        // Mettre à jour les actualités toutes les 30 minutes
+        setInterval(fetchNews, 1800000);  // Toutes les 30 minutes (1800000 ms)
+    });
+</script>
+
+
+
+
+
+  <!-- end Blog section : NewsApi -->
+
 
 
   <!-- professional section -->
@@ -294,7 +384,7 @@ session_start();
               </div>
               <div class="client_text">
                 <p>
-                  "La génération des certificats et le cryptage fonctionnent parfaitement avec un excellent niveau de sécurité. J'apprécie particulièrement la documentation bien détaillée pour intégrer facilement les services dans nos systèmes."
+                  La génération des certificats et le cryptage fonctionnent parfaitement avec un excellent niveau de sécurité. J'apprécie particulièrement la documentation bien détaillée pour intégrer facilement les services dans nos systèmes.
                 </p>
               </div>
             </div>
@@ -305,7 +395,7 @@ session_start();
                 <div class="client_detail">
                   <div class="client_info">
                     <h6>
-                      Joe morik
+                      Anas Fadil
                     </h6>
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
@@ -329,7 +419,7 @@ session_start();
                 <div class="client_detail">
                   <div class="client_info">
                     <h6>
-                      Ghita
+                      Ghita El
                     </h6>
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
